@@ -3,12 +3,19 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\DragonTreasureRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DragonTreasureRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    description: 'A treasure that a dragon might have',
+    operations: [new Get(), new Put(), new Post()]
+
+)]
 class DragonTreasure
 {
     #[ORM\Id]
@@ -25,6 +32,9 @@ class DragonTreasure
     #[ORM\Column]
     private ?int $value = null;
 
+    /**
+     * Some usefull information about the treasure
+     */
     #[ORM\Column]
     private ?int $coolFactor = null;
 

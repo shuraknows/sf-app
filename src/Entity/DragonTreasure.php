@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Repository\DragonTreasureRepository;
@@ -12,8 +13,15 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DragonTreasureRepository::class)]
 #[ApiResource(
+    shortName: 'Treasure',
     description: 'A treasure that a dragon might have',
-    operations: [new Get(), new Put(), new Post()]
+    operations: [
+        //new Get(uriTemplate: '/dragon-plunder/{id}'),
+        new Get(),
+        new GetCollection(),
+        new Put(),
+        new Post()
+    ]
 
 )]
 class DragonTreasure
@@ -114,6 +122,8 @@ class DragonTreasure
         return $this->isPublished;
     }
 
+
+    // virtual field add extra field to the entity
     public function setIsPublished(bool $isPublished): static
     {
         $this->isPublished = $isPublished;
